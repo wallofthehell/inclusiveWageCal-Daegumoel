@@ -378,9 +378,9 @@ input[type="text"].money-input {
 }
 .result-table th, .result-table td {
   border: 1px solid var(--border-color);
-  padding: 1.5em 3em; /* About 3 chars padding horizontally */
 }
 .result-table th {
+  padding: 1.5em 1ch;
   background-color: var(--bg-color);
   width: 25%;
   vertical-align: top;
@@ -390,8 +390,23 @@ input[type="text"].money-input {
   text-align: left;
 }
 .result-table td {
+  padding: 1.5em 2em;
   vertical-align: top;
   text-align: left;
+}
+.result-table td ul {
+  padding-left: 1.5em;
+  margin: 5px 0 10px 0;
+  list-style-type: disc;
+}
+.result-table td li {
+  list-style-position: outside;
+  margin-bottom: 5px;
+  line-height: 1.6;
+}
+.result-table td ul ul {
+  padding-left: 1.5em;
+  list-style-type: circle;
 }
 .legal-bg td {
   background-color: #e6f7ff; /* light sky blue */

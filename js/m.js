@@ -1,4 +1,4 @@
-function calculateM(){
+﻿function calculateM(){
 
 updateWorkhourWeek();
 
@@ -612,7 +612,7 @@ let minimunWage_txt = wageMonthType1 && S11 > 0 && otv ? `
     <ul style="margin:0">
       <li>${Math.round(mPaya-R29).toLocaleString()}원 = ${Math.round(mPaya).toLocaleString()}원 - ${Math.round(R29).toLocaleString()}원
         <ul>
-          <li>연간 ${S11.toLocaleString()}원 상여금이 통상임금에 반영(<i class="fa fa-arrow-right" aria-hidden="true"></i> <a href="https://www.nodong.kr/case/2417619" target="_blank" class="ua">대법원 판례 (대법원 2020다247190)<i aria-hidden="true" class="fa fa-external-link" style="margin-left:5px"></i></a>)됨에 따라 ${workNameText}에 대한 유급처리 임금 ${Math.round(R29).toLocaleString()}원이 최저임금 계산의 대상이 되는 임금에서 제외됩니다.</li>
+          <li>연간 ${S11.toLocaleString()}원 상여금이 통상임금에 반영(<i class="fa fa-arrow-right" aria-hidden="true"></i> 대법원 판례 (대법원 2020다247190))됨에 따라 ${workNameText}에 대한 유급처리 임금 ${Math.round(R29).toLocaleString()}원이 최저임금 계산의 대상이 되는 임금에서 제외됩니다.</li>
           <li>${Math.round(R29).toLocaleString()}원 = (연간 단위로 지급되는 상여금 월평균액 ${Math.round(S11m).toLocaleString()}원÷${minTimeM}시간)×${workNameText} 유급처리 ${overPremiumRatedHour}시간</li>
         </ul>
       </li>
@@ -621,7 +621,7 @@ let minimunWage_txt = wageMonthType1 && S11 > 0 && otv ? `
   <li>최저임금 계산에 사용되는 임금(월) : <b>${Math.round(B28).toLocaleString()}원</b>
     <ul style="margin:0">
       <li>최저임금 적용 기준시간에 대한 임금 ${Math.round(B28).toLocaleString()}원 = (${Math.round(mPaya-R29).toLocaleString()}원÷${totalHour}시간)×${minTimeM}시간</li>
-      <li>최저임금 적용 기준시간 이외의 임금 ${Math.round((mPaya-R29)/totalHour*overPremiumRatedHour).toLocaleString()}원{(${Math.round(mPaya-R29).toLocaleString()}원÷${totalHour}시간)×${overPremiumRatedHour}시간}은 최저임금 계산에 사용되지 않습니다. <i class="fa fa-arrow-right" aria-hidden="true"></i> <a href="https://www.nodong.kr/case/2443215" target="_blank" class="ua">대법원 판례 (대법원 2020다300299)<i aria-hidden="true" class="fa fa-external-link" style="margin-left:5px"></i></a></li>
+      <li>최저임금 적용 기준시간 이외의 임금 ${Math.round((mPaya-R29)/totalHour*overPremiumRatedHour).toLocaleString()}원{(${Math.round(mPaya-R29).toLocaleString()}원÷${totalHour}시간)×${overPremiumRatedHour}시간}은 최저임금 계산에 사용되지 않습니다. <i class="fa fa-arrow-right" aria-hidden="true"></i> 대법원 판례 (대법원 2020다300299)</li>
     </ul>
   </li>`
   : wageMonthType1 && S11 <= 0 && otv ? `
@@ -629,7 +629,7 @@ let minimunWage_txt = wageMonthType1 && S11 > 0 && otv ? `
   <li>최저임금 계산에 사용되는 임금(월) : <b>${Math.round(B28).toLocaleString()}원</b>
     <ul style="margin:0">
       <li>최저임금 적용 기준시간에 대한 임금 ${Math.round(B28).toLocaleString()}원 = (${Math.round(mPaya-R29).toLocaleString()}원÷${totalHour}시간)×${minTimeM}시간</li>
-      <li>최저임금 적용 기준시간 이외의 임금 ${Math.round((mPaya-R29)/totalHour*overPremiumRatedHour).toLocaleString()}원{(${Math.round(mPaya-R29).toLocaleString()}원÷${totalHour}시간)×${overPremiumRatedHour}시간}은 최저임금 계산에 사용되지 않습니다. <i class="fa fa-arrow-right" aria-hidden="true"></i> <a href="https://www.nodong.kr/case/2443215" target="_blank" class="ua">대법원 판례 (대법원 2020다300299)<i aria-hidden="true" class="fa fa-external-link" style="margin-left:5px"></i></a></li>
+      <li>최저임금 적용 기준시간 이외의 임금 ${Math.round((mPaya-R29)/totalHour*overPremiumRatedHour).toLocaleString()}원{(${Math.round(mPaya-R29).toLocaleString()}원÷${totalHour}시간)×${overPremiumRatedHour}시간}은 최저임금 계산에 사용되지 않습니다. <i class="fa fa-arrow-right" aria-hidden="true"></i> 대법원 판례 (대법원 2020다300299)</li>
     </ul>
   </li>`
   : wageMonthType1 && !otv ? `
@@ -667,7 +667,7 @@ let minimunWageCalMethod_txt =
     </ul>`; 
 
 // 최저임금 미달시 설명문
-let minimumWageMakeUp_txt = (gaptotalA>0) ? `<p><i class="fa fa-thumb-tack fa-lg" style="color:#FF0000; margin-right:3px;" aria-hidden="true"></i> <span class="makeup">보전금품 지급</span> 최저임금법 위반(최저임금 미달)을 해소하기 위해서는 월 최저임금 <b>${(F29*minTimeM).toLocaleString()}</b>원(${F29.toLocaleString()}원×월 ${minTimeM}시간)과 '최저임금 계산에 사용되는 임금'(현재 <b>${minWageMUsed_txt}</b>)의 차액인 월 <span class="money-dn">${Math.round(gaptotalA).toLocaleString()}</span>원을 <b>보전금품</b>으로 지급해야 합니다. <span data-tooltip-text="[최저임금법 제6조] ③ 최저임금의 적용을 받는 근로자와 사용자 사이의 근로계약 중 최저임금액에 미치지 못하는 금액을 임금으로 정한 부분은 무효로 하며, 이 경우 무효로 된 부분은 이 법으로 정한 최저임금액과 동일한 임금을 지급하기로 한 것으로 본다."><i class="fa fa-question-circle" aria-hidden="true"></i></span></p>` : `` ;
+let minimumWageMakeUp_txt = (gaptotalA>0) ? `<p><i class="fa fa-thumb-tack fa-lg" style="color:#FF0000; margin-right:3px;" aria-hidden="true"></i> <span class="makeup">보전금품 지급</span> 최저임금법 위반(최저임금 미달)을 해소하기 위해서는 월 최저임금 <b>${(F29*minTimeM).toLocaleString()}</b>원(${F29.toLocaleString()}원×월 ${minTimeM}시간)과 '최저임금 계산에 사용되는 임금'(현재 <b>${minWageMUsed_txt}</b>)의 차액인 월 <span class="money-dn">${Math.round(gaptotalA).toLocaleString()}</span>원을 <b>보전금품</b>으로 지급해야 합니다. <span data-tooltip-text="[최저임금법 제6조] ③ 최저임금의 적용을 받는 근로자와 사용자 사이의 근로계약 중 최저임금액에 미치지 못하는 금액을 임금으로 정한 부분은 무효로 하며, 이 경우 무효로 된 부분은 이 법으로 정한 최저임금액과 동일한 임금을 지급하기로 한 것으로 본다."></span></p>` : `` ;
 
 
 //계속지급해야할 월초과 상여금 지급해야할
@@ -693,7 +693,7 @@ let tongWageExcept_txt = wageMonthType1 && S11 > 0 && otv ? `
           </ul>`
           : wageMonthType2 && !otv && mPay_ot > 0 ? `
           <ul class="wer">
-            <li>${workNameText_final}가 전혀 없는 상태(${overPremiumRatedHour}시간)에서 <b>고정OT수당 ${mPay_ot.toLocaleString()}원</b>이 지급된 경우, 통상임금에 포함되는지 여부에 대해 논란(<i class="fa fa-arrow-right" aria-hidden="true"></i> <a href="https://www.nodong.kr/bestqna/403277" target="_blank"  class="ua">고정OT수당이 통상임금에 포함되는지 여부</a>)이 있습니다. 법원 판결 논란이 어떻게 종결되느냐에 따라 통상임금에 포함될 수도 있습니다.</li>
+            <li>${workNameText_final}가 전혀 없는 상태(${overPremiumRatedHour}시간)에서 <b>고정OT수당 ${mPay_ot.toLocaleString()}원</b>이 지급된 경우, 통상임금에 포함되는지 여부에 대해 논란(<i class="fa fa-arrow-right" aria-hidden="true"></i> 고정OT수당이 통상임금에 포함되는지 여부)이 있습니다. 법원 판결 논란이 어떻게 종결되느냐에 따라 통상임금에 포함될 수도 있습니다.</li>
           </ul>
           `
           : `` ;
@@ -704,7 +704,7 @@ let tong_type1BonusCase = wageMonthType1 && S11 > 0 && otv ? `
     <ul style="margin:0">
       <li>${Math.round(mPaya-R29).toLocaleString()}원 = ${Math.round(mPaya).toLocaleString()}원 - ${Math.round(R29).toLocaleString()}원
         <ul>
-          <li>연간 ${S11.toLocaleString()}원 상여금이 통상임금에 반영(<i class="fa fa-arrow-right" aria-hidden="true"></i> <a href="https://www.nodong.kr/case/2417619" target="_blank" class="ua">대법원 판례 (대법원 2020다247190)<i aria-hidden="true" class="fa fa-external-link" style="margin-left:5px"></i></a>)됨에 따라 ${workNameText}에 대한 유급처리 임금 ${Math.round(R29).toLocaleString()}원이 통상임금 계산의 대상이 되는 임금에서 제외됩니다.</li>
+          <li>연간 ${S11.toLocaleString()}원 상여금이 통상임금에 반영(<i class="fa fa-arrow-right" aria-hidden="true"></i> 대법원 판례 (대법원 2020다247190))됨에 따라 ${workNameText}에 대한 유급처리 임금 ${Math.round(R29).toLocaleString()}원이 통상임금 계산의 대상이 되는 임금에서 제외됩니다.</li>
           <li>${Math.round(R29).toLocaleString()}원 = (연간 단위로 지급되는 상여금 월평균액 ${Math.round(S11m).toLocaleString()}원÷${tongTimeM}시간)×${workNameText} 유급처리 ${overPremiumRatedHour}시간</li>
         </ul>
       </li>
@@ -735,7 +735,7 @@ let tongWage2_txt = gaptotalA > 0 ? `<li>월 최저임금과의 차액(보전금
 
 let tongWage3_txt = S11 > 0 ? `<li>연간 단위로 지급되는 상여금의 월평균액 <b>${Math.round(S11m).toLocaleString()}원</b> = (연 ${(S11).toLocaleString()}원÷12월)
   <ul>
-    <li>연간 단위로 지급되는 상여금도 통상임금에 반영됩니다.<i class="fa fa-arrow-right" aria-hidden="true"></i> <a href="https://www.nodong.kr/case/2417619" target="_blank" class="ua">대법원 전원헙의체 2020다247190<i aria-hidden="true" class="fa fa-external-link" style="margin-left:5px"></i></a></li>
+    <li>연간 단위로 지급되는 상여금도 통상임금에 반영됩니다.<i class="fa fa-arrow-right" aria-hidden="true"></i> 대법원 전원헙의체 2020다247190</li>
   </ul>
 </li>` : ``;
 
@@ -762,7 +762,7 @@ let nt_txt = nightM > 0 ? `
     <li>월 야간근로 유급시간 : <b>${nightM}</b> 시간 <span>= ${ntMd>0 ? `(1월 ${ntMd}시간×${ntPremiumRate})` : `(1주 ${nightW}시간×${ntPremiumRate})×(365일÷7일÷12월)`}</span></li>`:
     `` ;
 let holy_txt = holyworkFull > 0 ? `
-  <li>1주 휴일근로 : <span data-tooltip-text="1일 8시간 이내의 휴일근로 ${holy1W}시간 + 1일 8시간을 초과한 휴일근로 ${holy2W}시간">${holyworkFull}시간 <i class="fa fa-question-circle" aria-hidden="true"></i></span>
+  <li>1주 휴일근로 : <span data-tooltip-text="1일 8시간 이내의 휴일근로 ${holy1W}시간 + 1일 8시간을 초과한 휴일근로 ${holy2W}시간">${holyworkFull}시간 </span>
     <ul>
       <li>월 휴일근로<span>(1일 8시간 이내)</span> 유급시간 : <b>${holy1M}</b> 시간 <span>= (1주 <b>${holy1W}</b>시간×${hw1PremiumRate})×(365일÷7일÷12월)</span></li>
       <li>월 휴일연장<span>(1일 8시간 초과)</span> 유급시간 : <b>${holy2M}</b> 시간 <span>= (1주 <b>${holy2W}</b>시간×${hw2PremiumRate})×(365일÷7일÷12월)</span></li>
@@ -801,14 +801,14 @@ console.log('월단위로 입력한 전체휴일근로시간 : '+hwOption1);
 console.log('주단위로 입력한 전체휴일근로시간 : '+hwOption2);
 
     let holy_txt = hwOption1 ? `
-    <li>월 휴일근로 : <span data-tooltip-text="1일 8시간 이내의 휴일근로 ${hwMd1}시간 + 1일 8시간을 초과한 휴일근로 ${hwMd2}시간">${hwMd1+hwMd2}시간 <i class="fa fa-question-circle" aria-hidden="true"></i></span>
+    <li>월 휴일근로 : <span data-tooltip-text="1일 8시간 이내의 휴일근로 ${hwMd1}시간 + 1일 8시간을 초과한 휴일근로 ${hwMd2}시간">${hwMd1+hwMd2}시간 </span>
       <ul>
         <li>월 휴일근로<span>(1일 8시간 이내)</span> 유급처리 시간(가산율 포함) : <b>${holy1M}</b> 시간 <span>= (월 <b>${hwMd1}</b>시간×${hw1PremiumRate})</span></li>
         <li>월 휴일연장<span>(1일 8시간 초과)</span> 유급처리 시간(가산율 포함) : <b>${holy2M}</b> 시간 <span>= (월 <b>${hwMd2}</b>시간×${hw2PremiumRate})</span></li>
       </ul>
     </li>` :
     hwOption2 ? `
-    <li>1주 휴일근로 : <span data-tooltip-text="1일 8시간 이내의 휴일근로 ${holy1W}시간 + 1일 8시간을 초과한 휴일근로 ${holy2W}시간">${holyworkFull}시간 <i class="fa fa-question-circle" aria-hidden="true"></i></span>
+    <li>1주 휴일근로 : <span data-tooltip-text="1일 8시간 이내의 휴일근로 ${holy1W}시간 + 1일 8시간을 초과한 휴일근로 ${holy2W}시간">${holyworkFull}시간 </span>
       <ul>
         <li>월 휴일근로<span>(1일 8시간 이내)</span> 유급처리 시간(가산율 포함) : <b>${holy1M}</b> 시간 <span>= (1주 <b>${holy1W}</b>시간×${hw1PremiumRate})×(365일÷7일÷12월)</span></li>
         <li>월 휴일연장<span>(1일 8시간 초과)</span> 유급처리 시간(가산율 포함) : <b>${holy2M}</b> 시간 <span>= (1주 <b>${holy2W}</b>시간×${hw2PremiumRate})×(365일÷7일÷12월)</span></li>
@@ -873,7 +873,7 @@ let yuhumu_txt = yuhumu > 0 ? `, 유급휴무일 ${yuhumu}일` : `` ;
 let muhumu_txt = muhumu > 0 ? `, 무급휴무일 ${muhumu}일` : `` ;
 let info_day = `(${workday_txt}${yuhuil_txt}${muhuil_txt}${yuhumu_txt}${muhumu_txt})` ;
 let info1 = person5Up ?  `5인이상 사업장` : `5인미만 사업장` ;
-let info2 = specialJobN ?  `특수 업종·직종<span data-tooltip-text="① 농림·축산·수산업 종사자 ② 감시·단속직 종사자 ③ 관리ㆍ감독ㆍ기밀 업무 종사자"><i class="fa fa-question-circle" aria-hidden="true"></i>에 해당하지 않는` : `특수 업종·직종<span data-tooltip-text="① 농림·축산·수산업 종사자 ② 감시·단속직 종사자 ③ 관리ㆍ감독ㆍ기밀 업무 종사자"><i class="fa fa-question-circle" aria-hidden="true"></i>에 해당하는` ;
+let info2 = specialJobN ?  `특수 업종·직종<span data-tooltip-text="① 농림·축산·수산업 종사자 ② 감시·단속직 종사자 ③ 관리ㆍ감독ㆍ기밀 업무 종사자">에 해당하지 않는` : `특수 업종·직종<span data-tooltip-text="① 농림·축산·수산업 종사자 ② 감시·단속직 종사자 ③ 관리ㆍ감독ㆍ기밀 업무 종사자">에 해당하는` ;
 let info3 = y2027 ?  `2027년도` : y2026 ?  `2026년도` : `2025년도` ;
 
 let info4_txt = fpType2 ? `<li>파트타이머(1주 40시간 미만 근무자)인 경우, 동종 풀타임 근로자의 1주 근무일 수는 <b>5일</b>로 간주한 계산입니다.</li>` : `` ;
@@ -881,10 +881,10 @@ let info4_txt = fpType2 ? `<li>파트타이머(1주 40시간 미만 근무자)�
 //let  info2_2 = (otW + nightW + holy1W > 0) ? `기본근로시간(1일 8시간, 1주 40시간)외에 연장·야간·휴일근로를 하고 그에 상응하는 수당(OT수당)을 월고정급여액에 포함하거나 기본급여액외 별도의 수당을 받기로 정한 기로 정한하는` : `연장·야간·휴일근로를 하지 않는` ;
 
 let thisCal_1_txt =`
-    <li><i class="fa fa-bell" aria-hidden="true"></i> 이 계산은
+    <li>이 계산은
       <ul>
         <li><b>${info1}</b> ${info_day}에서</li>
-        <li><b>${info2}</b> 월급제 근로자의 <span class="rst_pb" data-tooltip-text="기본근로시간(1일 8시간, 1주 40시간)외에 연장·야간·휴일근로를 하고 그에 상응하는 수당(OT수당)을 월고정급여액에 포함하거나 기본급여액외 별도의 수당을 받기로 정한 기로 정한 계약">포괄임금 계약 <i class="fa fa-question-circle" aria-hidden="true"></i></span>이</li>
+        <li><b>${info2}</b> 월급제 근로자의 <span class="rst_pb" data-tooltip-text="기본근로시간(1일 8시간, 1주 40시간)외에 연장·야간·휴일근로를 하고 그에 상응하는 수당(OT수당)을 월고정급여액에 포함하거나 기본급여액외 별도의 수당을 받기로 정한 기로 정한 계약">포괄임금 계약 </span>이</li>
         <li><b>${info3} 최저임금</b>을 기준으로 <span class="rst_pb">적법</span>한지를 확인하는 계산입니다.</li>
         ${info4_txt}
       </ul>
@@ -893,10 +893,10 @@ let thisCal_1_txt =`
 
 let thisCal_2_txt =
   (H29 < F29) ? `
-    <li><i class="fa fa-bell" aria-hidden="true"></i> 이 계산은 임금이 최저임금에 미달하는 경우 ①최저임금과의 차액을 <b>보전금품으로 추가</b>하여 최저임금 미달을 해소하고 <i class="fa fa-arrow-right" aria-hidden="true"></i> ②최저임금 미달이 해소된 임금을 기준으로 통상임금을 계산한 다음 <i class="fa fa-arrow-right" aria-hidden="true"></i> ③ 그 통상임금을 기준으로 포괄임금계약의 적법 여부를 따지는데, 이 방식은 아래에 따른 것입니다.
+    <li>이 계산은 임금이 최저임금에 미달하는 경우 ①최저임금과의 차액을 <b>보전금품으로 추가</b>하여 최저임금 미달을 해소하고 <i class="fa fa-arrow-right" aria-hidden="true"></i> ②최저임금 미달이 해소된 임금을 기준으로 통상임금을 계산한 다음 <i class="fa fa-arrow-right" aria-hidden="true"></i> ③ 그 통상임금을 기준으로 포괄임금계약의 적법 여부를 따지는데, 이 방식은 아래에 따른 것입니다.
       <ul>
-        <li><a href="https://www.nodong.kr/case/2384947" class="ua">대법원 판례 (2014다49074, 2017.12.28.) <i aria-hidden="true" class="fa fa-external-link"></i></a></li>
-        <li><a href="https://www.nodong.kr/interpretation/2385394" class="ua">노동부 행정해석 (근로기준정책과-6075, 2019.12.4.) <i aria-hidden="true" class="fa fa-external-link"></i></a></li>
+        <li>대법원 판례 (2014다49074, 2017.12.28.) </li>
+        <li>노동부 행정해석 (근로기준정책과-6075, 2019.12.4.) </li>
       </ul>
     </li>
   `
@@ -931,7 +931,7 @@ let payBefore = (wageMonthType1 && S11 > 0 && otv) ? `
               <ul>
                 <li>{${Math.round(mPaya-R29).toLocaleString()}원÷${totalHour}시간×${overPremiumRatedHour}시간} + ${Math.round(R29).toLocaleString()}원
               ${divSudang_txt}</li>
-                <li>연간 ${S11.toLocaleString()}원 상여금을 통상임금에 반영해야 하므로 ${workNameText}에 대한 임금에 ${Math.round(R29).toLocaleString()}원이 추가되었습니다. <i class="fa fa-arrow-right" aria-hidden="true"></i> <a href="https://www.nodong.kr/case/2417619" target="_blank" class="ua">대법원 판례 (대법원 2020다247190)<i aria-hidden="true" class="fa fa-external-link" style="margin-left:5px"></i></a>
+                <li>연간 ${S11.toLocaleString()}원 상여금을 통상임금에 반영해야 하므로 ${workNameText}에 대한 임금에 ${Math.round(R29).toLocaleString()}원이 추가되었습니다. <i class="fa fa-arrow-right" aria-hidden="true"></i> 대법원 판례 (대법원 2020다247190)
                 ${R29_txt}</li>
               </ul>
             </li>
@@ -942,8 +942,8 @@ let payBefore = (wageMonthType1 && S11 > 0 && otv) ? `
       <ul>
         <li>${workNameText} 시간을 감안하면 월고정급 ${mPaya.toLocaleString()}원은 아래와 같이 해석합니다.
           <ul>
-            <li>소정근로시간에 대한 임금  : ${Math.round(mPaya * (tongTimeM / totalHour)).toLocaleString()}원 <span data-tooltip-text="${mPaya.toLocaleString()}원÷${totalHour}시간×${tongTimeM}시간"> <i class="fa fa-question-circle" aria-hidden="true"></i></span></li>
-            <li>${workNameText}에 대한 임금 : ${Math.round(mPaya * (overPremiumRatedHour / totalHour)).toLocaleString()}원 <span data-tooltip-text="${mPaya.toLocaleString()}원÷${totalHour}시간×${overPremiumRatedHour}시간"> <i class="fa fa-question-circle" aria-hidden="true"></i></span>
+            <li>소정근로시간에 대한 임금  : ${Math.round(mPaya * (tongTimeM / totalHour)).toLocaleString()}원 <span data-tooltip-text="${mPaya.toLocaleString()}원÷${totalHour}시간×${tongTimeM}시간"> </span></li>
+            <li>${workNameText}에 대한 임금 : ${Math.round(mPaya * (overPremiumRatedHour / totalHour)).toLocaleString()}원 <span data-tooltip-text="${mPaya.toLocaleString()}원÷${totalHour}시간×${overPremiumRatedHour}시간"> </span>
               ${divSudang_txt}
             </li>
           </ul>
@@ -1059,7 +1059,7 @@ let rMathod_txt = `
   <p class="rst_p22">${wType} <u>아래와 같이</u> 기본급과 <b>${suNameText_final}</b>을 <b>각각 구분</b>하고 그 계산방법을 명시하기 바랍니다.</p>
   ${rst_mPay_after}
   <ul>      
-    <li>근로기준법 제17조에 따라 임금 구성 항목, 그 계산방법, 소정근로시간 등을 반드시 서면으로 명시하고 이를 근로자에 교부해야 합니다. 따라서 기본급과 <b>${suNameText_final}</b>이 <b>각각 구분되어야</b> 적법한 포괄임금계약으로 인정됩니다. <i class="fa fa-arrow-right" aria-hidden="true"></i> <a href="https://www.nodong.kr/imgum/2443746" target="_blank" class="ua">포괄임금제 적용기준과 적법성 판단 기준</a> </li>
+    <li>근로기준법 제17조에 따라 임금 구성 항목, 그 계산방법, 소정근로시간 등을 반드시 서면으로 명시하고 이를 근로자에 교부해야 합니다. 따라서 기본급과 <b>${suNameText_final}</b>이 <b>각각 구분되어야</b> 적법한 포괄임금계약으로 인정됩니다. <i class="fa fa-arrow-right" aria-hidden="true"></i> 포괄임금제 적용기준과 적법성 판단 기준 </li>
   </ul>` 
 
 console.log('otMd 월단위로 입력한 월연장근로시간 : ' + otMd);
@@ -1178,7 +1178,7 @@ ${gaptotalA > 0 ? `
         </div>
         <p>시간급(<b>${Math.round(H29).toLocaleString()}원</b>)은 아래와 같이 계산되었습니다.</p>
         <ul style="margin-bottom:15px;">
-          <li>최저임금 적용 기준시간(월) <span data-tooltip-text="1주 동안의 소정근로시간 수(${p1H23}시간)와 유급 주휴일 시간 수(${p2H18}시간)를 합산한 시간 수에 1년 동안의 평균의 주의 수(365일÷7일)를 곱한 시간을 12로 나눈 시간 수(최저임금법 시행령 제5조제1항)"><i class="fa fa-question-circle" aria-hidden="true"></i></span> : <b>${minTimeM} 시간</b>
+          <li>최저임금 적용 기준시간(월) <span data-tooltip-text="1주 동안의 소정근로시간 수(${p1H23}시간)와 유급 주휴일 시간 수(${p2H18}시간)를 합산한 시간 수에 1년 동안의 평균의 주의 수(365일÷7일)를 곱한 시간을 12로 나눈 시간 수(최저임금법 시행령 제5조제1항)"></span> : <b>${minTimeM} 시간</b>
             <ul class="wer">
               <li><span>(1주 기본근로 ${p1H23}시간+1주 유급주휴일 ${p2H18}시간)×(365일÷7일÷12월)</span></li>
               ${nonYujuhuil_txt}
@@ -1210,7 +1210,7 @@ ${gaptotalA > 0 ? `
 
         <h4 class="rst_h_b"><i class="fa fa-check-square-o fa-lg" aria-hidden="true"></i> 통상임금</h4>
           <ul>
-            <li>통상임금 산정 기준시간(월) <span data-tooltip-text="1주의 소정근로시간(${p1H23}시간)과 그 외에 유급으로 처리되는 시간(${(yuhuil+yuhumu)*p1H22}시간)를 합산한 시간에 1년 동안의 평균 주의 수(365일÷7일)를 곱한 시간을 12로 나눈 시간(근로기준법 시행령 제6조제2항)"><i class="fa fa-question-circle" aria-hidden="true"></i></span> : <b>${tongTimeM} 시간</b>
+            <li>통상임금 산정 기준시간(월) <span data-tooltip-text="1주의 소정근로시간(${p1H23}시간)과 그 외에 유급으로 처리되는 시간(${(yuhuil+yuhumu)*p1H22}시간)를 합산한 시간에 1년 동안의 평균 주의 수(365일÷7일)를 곱한 시간을 12로 나눈 시간(근로기준법 시행령 제6조제2항)"></span> : <b>${tongTimeM} 시간</b>
               <ul class="wer">
                 <li>${tongTimeM_txt}</li>
               </ul>

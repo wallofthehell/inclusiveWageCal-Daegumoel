@@ -371,15 +371,15 @@ input[type="text"].money-input {
 .rst_m_n { background-color: #fff; }
 
 /* Table Layout for Results (Custom) */
-.result-table {
+#result .result-table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;
 }
-.result-table th, .result-table td {
+#result .result-table th, #result .result-table td {
   border: 1px solid var(--border-color);
 }
-.result-table th {
+#result .result-table th {
   padding: 1.5em 1ch;
   background-color: var(--bg-color);
   width: 25%;
@@ -389,34 +389,37 @@ input[type="text"].money-input {
   color: var(--primary-blue);
   text-align: left;
 }
-.result-table td {
-  padding: 1.5em 2em;
+#result .result-table td {
+  padding-top: 1.5em;
+  padding-bottom: 1.5em;
+  padding-left: 2.5em;
+  padding-right: 1.5em;
   vertical-align: top;
   text-align: left;
 }
-.result-table td ul {
+#result .result-table td ul {
   padding-left: 1.5em;
   margin: 5px 0 10px 0;
   list-style-type: disc;
 }
-.result-table td li {
+#result .result-table td li {
   list-style-position: outside;
   margin-bottom: 5px;
   line-height: 1.6;
 }
-.result-table td ul ul {
+#result .result-table td ul ul {
   padding-left: 1.5em;
   list-style-type: circle;
 }
-.legal-bg td {
+#result .legal-bg td {
   background-color: #e6f7ff; /* light sky blue */
 }
-.illegal-bg td {
+#result .illegal-bg td {
   background-color: #fcedec; /* light gray with slight red tone */
 }
-.legal-text {
+#result .legal-text {
   color: #0047A0 !important;
 }
-.illegal-text {
+#result .illegal-text {
   color: #CD2E3A !important;
 }

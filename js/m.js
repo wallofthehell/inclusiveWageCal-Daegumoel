@@ -1166,87 +1166,87 @@ let resultText = totalHour > 0 ? `
   </tr>
 </table>
 
-${gaptotalA > 0 ? \`
+${gaptotalA > 0 ? `
 <table class="result-table illegal-bg" style="margin-top:20px;">
   <tr>
     <th class="result-th">최저임금<br>적합 여부</th>
     <td class="result-td">
       <div class="result-container-in">
         <div class="rst_inbox">
-          \${J29_txt}
-          \${yourMinWage_txt}
+          ${J29_txt}
+          ${yourMinWage_txt}
         </div>
-        <p>시간급(<b>\${Math.round(H29).toLocaleString()}원</b>)은 아래와 같이 계산되었습니다.</p>
+        <p>시간급(<b>${Math.round(H29).toLocaleString()}원</b>)은 아래와 같이 계산되었습니다.</p>
         <ul style="margin-bottom:15px;">
-          <li>최저임금 적용 기준시간(월) <span data-tooltip-text="1주 동안의 소정근로시간 수(\${p1H23}시간)와 유급 주휴일 시간 수(\${p2H18}시간)를 합산한 시간 수에 1년 동안의 평균의 주의 수(365일÷7일)를 곱한 시간을 12로 나눈 시간 수(최저임금법 시행령 제5조제1항)"><i class="fa fa-question-circle" aria-hidden="true"></i></span> : <b>\${minTimeM} 시간</b>
+          <li>최저임금 적용 기준시간(월) <span data-tooltip-text="1주 동안의 소정근로시간 수(${p1H23}시간)와 유급 주휴일 시간 수(${p2H18}시간)를 합산한 시간 수에 1년 동안의 평균의 주의 수(365일÷7일)를 곱한 시간을 12로 나눈 시간 수(최저임금법 시행령 제5조제1항)"><i class="fa fa-question-circle" aria-hidden="true"></i></span> : <b>${minTimeM} 시간</b>
             <ul class="wer">
-              <li><span>(1주 기본근로 \${p1H23}시간+1주 유급주휴일 \${p2H18}시간)×(365일÷7일÷12월)</span></li>
-              \${nonYujuhuil_txt}
+              <li><span>(1주 기본근로 ${p1H23}시간+1주 유급주휴일 ${p2H18}시간)×(365일÷7일÷12월)</span></li>
+              ${nonYujuhuil_txt}
             </ul>
           </li>
-          \${minimunWage_txt}
-          <li>\${minimunWageCalMethod_txt}</li>
+          ${minimunWage_txt}
+          <li>${minimunWageCalMethod_txt}</li>
         </ul>
-          \${minimumWageMakeUp_txt}
+          ${minimumWageMakeUp_txt}
       </div>  
     </td>
   </tr>
 </table>
-\` : \`\`}
+` : ``}
 
 <table class="result-table ${resultClass}" style="margin-top:20px;">
   <tr>
     <th class="result-th">포괄임금액<br>적절 여부</th>
     <td class="result-td">
       <div class="result-container-in">
-        <div class="rst_inbox">\${title_txt}
+        <div class="rst_inbox">${title_txt}
           <ul style="margin-top:10px; text-align:left; font-size:0.85em; font-weight:normal;">
-            \${title_sub1_txt}
-            \${title_sub2_txt}
-            \${title_sub3_txt}
-            \${title_sub4_txt}
+            ${title_sub1_txt}
+            ${title_sub2_txt}
+            ${title_sub3_txt}
+            ${title_sub4_txt}
           </ul>
         </div>
 
         <h4 class="rst_h_b"><i class="fa fa-check-square-o fa-lg" aria-hidden="true"></i> 통상임금</h4>
           <ul>
-            <li>통상임금 산정 기준시간(월) <span data-tooltip-text="1주의 소정근로시간(\${p1H23}시간)과 그 외에 유급으로 처리되는 시간(\${(yuhuil+yuhumu)*p1H22}시간)를 합산한 시간에 1년 동안의 평균 주의 수(365일÷7일)를 곱한 시간을 12로 나눈 시간(근로기준법 시행령 제6조제2항)"><i class="fa fa-question-circle" aria-hidden="true"></i></span> : <b>\${tongTimeM} 시간</b>
+            <li>통상임금 산정 기준시간(월) <span data-tooltip-text="1주의 소정근로시간(${p1H23}시간)과 그 외에 유급으로 처리되는 시간(${(yuhuil+yuhumu)*p1H22}시간)를 합산한 시간에 1년 동안의 평균 주의 수(365일÷7일)를 곱한 시간을 12로 나눈 시간(근로기준법 시행령 제6조제2항)"><i class="fa fa-question-circle" aria-hidden="true"></i></span> : <b>${tongTimeM} 시간</b>
               <ul class="wer">
-                <li>\${tongTimeM_txt}</li>
+                <li>${tongTimeM_txt}</li>
               </ul>
             </li>
-            \${tong_type1BonusCase}
-            <li>통상임금 계산에 사용되는 임금 : <b>\${Math.round(tongWage).toLocaleString()}원</b>
+            ${tong_type1BonusCase}
+            <li>통상임금 계산에 사용되는 임금 : <b>${Math.round(tongWage).toLocaleString()}원</b>
               <ul class="wer">
-                <li>\${tongWage1_txt}
-                  \${tongWageExcept_txt}</li>
-                \${tongWage2_txt}
-                \${tongWage3_txt}
+                <li>${tongWage1_txt}
+                  ${tongWageExcept_txt}</li>
+                ${tongWage2_txt}
+                ${tongWage3_txt}
               </ul>
             </li>
-            <li>시간당 통상임금 : <b>\${Math.round(P29).toLocaleString()}원</b> = \${Math.round(tongWage).toLocaleString()}원 ÷ \${tongTimeM}시간</li>
+            <li>시간당 통상임금 : <b>${Math.round(P29).toLocaleString()}원</b> = ${Math.round(tongWage).toLocaleString()}원 ÷ ${tongTimeM}시간</li>
           </ul>
 
-        <h4 class="rst_h_b"><i class="fa fa-check-square-o fa-lg" aria-hidden="true"></i> 현재 임금(월) : \${Math.round(currentWage).toLocaleString()}원</h4>
-          \${payBefore}
+        <h4 class="rst_h_b"><i class="fa fa-check-square-o fa-lg" aria-hidden="true"></i> 현재 임금(월) : ${Math.round(currentWage).toLocaleString()}원</h4>
+          ${payBefore}
 
-        <h4 class="rst_h_b"><i class="fa fa-check-square-o fa-lg" aria-hidden="true"></i> (최소한) 제대로 지급해야 할 임금 총액(월) : \${Math.round(S35).toLocaleString()}원</h4>
+        <h4 class="rst_h_b"><i class="fa fa-check-square-o fa-lg" aria-hidden="true"></i> (최소한) 제대로 지급해야 할 임금 총액(월) : ${Math.round(S35).toLocaleString()}원</h4>
           <ul>
-            <li>기본급(주휴수당포함) : \${Math.round(G35).toLocaleString()}원 \${revisedMinimumWagecomment}
-            \${G35_txt}</li>
-            \${I35_txt}
-            \${overWork_ul_s}
-              \${M35_txt}
-              \${O35_txt}
-              \${Q35_txt}
-            \${overWork_ul_e}
+            <li>기본급(주휴수당포함) : ${Math.round(G35).toLocaleString()}원 ${revisedMinimumWagecomment}
+            ${G35_txt}</li>
+            ${I35_txt}
+            ${overWork_ul_s}
+              ${M35_txt}
+              ${O35_txt}
+              ${Q35_txt}
+            ${overWork_ul_e}
             </ul>
 
-        <h4 class="rst_h_b"><i class="fa fa-check-square-o fa-lg" aria-hidden="true"></i> 추가 지급해야할 임금<span class="cr">(체불임금)</span> : <span class="rst_pr">\${Math.round(revised_total_zeroUp).toLocaleString()}원</span></h4>
+        <h4 class="rst_h_b"><i class="fa fa-check-square-o fa-lg" aria-hidden="true"></i> 추가 지급해야할 임금<span class="cr">(체불임금)</span> : <span class="rst_pr">${Math.round(revised_total_zeroUp).toLocaleString()}원</span></h4>
             <ul>
-              <li>최저임금 미달 해소를 위한 금품 보전 : <b>\${revised_Basic_txt}</b></li>
-              <li>적정 \${suNameText_final}을 위한 금품 보전 : <b>\${revised_Sudang_txt}</b></li>
-              \${notouchSudang_txt}
+              <li>최저임금 미달 해소를 위한 금품 보전 : <b>${revised_Basic_txt}</b></li>
+              <li>적정 ${suNameText_final}을 위한 금품 보전 : <b>${revised_Sudang_txt}</b></li>
+              ${notouchSudang_txt}
             </ul>
       </div>
     </td>
@@ -1254,8 +1254,8 @@ ${gaptotalA > 0 ? \`
 </table>
 
 
-\`
-: \`
+`
+: `
 <hr />
 
 <h3 style="color:red">포괄임금계약의 적법성 여부를 판단할 수 없습니다.</h3>

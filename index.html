@@ -1,365 +1,231 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>포괄임금 계산기 - Daegumoel</title>
-  
-  <!-- Modern Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/fontawesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="style.css">
-  
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>포괄임금 계산기</title>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <link rel="stylesheet" href="style.css">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-  <div class="app-container">
-    <header class="app-header">
-      <h1>포괄임금 자동계산기</h1>
-      <p>포괄임금 계약이 노동관계법의 임금과 근로시간 규정에 부합하는지 알아봅니다.</p>
-    </header>
+    <div id="app" class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <button id="btn-back" class="btn-icon hidden" aria-label="뒤로가기">
+                <i class="fa-solid fa-arrow-left"></i>
+            </button>
+            <h1 id="header-title">포괄임금 도우미</h1>
+            <div class="header-right"></div>
+        </header>
 
-    <main class="app-content">
-      <!-- 급여 형태 (숨겨져 있지만 JS에서 사용함) -->
-      <fieldset class="input-section" style="display: none;">
-        <legend>급여 형태</legend>
-        <div class="radio-group">
-          <label><input type="radio" id="paytypeMonth" name="paytype" value="payM" checked />월급제</label>
-          <label><input type="radio" id="paytypeDay" name="paytype" value="payD" />일급제</label>
-          <label><input type="radio" id="paytypeHour" name="paytype" value="payH" />시급제</label>
-        </div>
-      </fieldset>
-
-      <!-- 기초 확인 사항 -->
-      <fieldset class="input-section">
-        <legend>1. 기초 확인 사항</legend>
-        
-        <div class="form-row">
-          <div class="subject">회사 규모</div>
-          <div class="radio-group">
-            <label><input type="radio" name="person" value="no" id="person5Up" checked /> 5인 이상</label>
-            <label><input type="radio" name="person" value="yes" id="person5Down" /> 5인 미만</label>
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="subject">특수 업종·직종 여부</div>
-          <div class="radio-group">
-            <label><input type="radio" name="specialJob" value="no" id="specialJobN" checked /> 아니오</label>
-            <label><input type="radio" name="specialJob" value="yes" id="specialJobY" /> 예</label>
-          </div>
-          <p class="help-text">농림·축·수산업, 감시·단속직, 관리·감독직</p>
-        </div>
-
-        <div class="form-row">
-          <div class="subject">최저임금 해당 연도</div>
-          <div class="radio-group">
-            <label><input type="radio" name="minimumWage" value="y2027" id="y2027" /> 2027년</label>
-            <label><input type="radio" name="minimumWage" value="y2026" id="y2026" checked /> 2026년</label>
-            <label><input type="radio" name="minimumWage" value="y2025" id="y2025" /> 2025년</label>
-          </div>
-        </div>
-      </fieldset>
-
-      <!-- 근무일·근로시간 입력 -->
-      <fieldset class="input-section">
-        <legend>2. 근무일·휴일·휴무일·근로시간</legend>
-        
-        <div class="subsection">
-          <div class="subject"><i class="fa fa-calendar-check-o"></i> 1주의 근무일·휴일·휴무일</div>
-          <div class="radio-group">
-            <label><input type="radio" id="dayType1" name="dayTypeMode" value="basic" checked /> 기본입력</label>
-            <label><input type="radio" id="dayType2" name="dayTypeMode" value="custom" /> 직접입력</label>
-          </div>
-          
-          <!-- 기본입력 -->
-          <div id="d1Box" class="sub-box">
-            <p class="help-text">일반적인 <b>주5일제</b>인 경우 (수정불가)</p>
-            <div id="dayTypeBasic" class="day-inputs">
-              <span>근무일(평일): <input type="number" id="basic_day1" value="5" readonly/>일</span>
-              <span>무급휴무일(토): <input type="number" id="basic_day5" value="1" readonly/>일</span>
-              <span>유급휴일(일): <input type="number" id="basic_day2" value="1" min="0" readonly/>일</span>
-            </div>
-            <div id="noticeB_basic" class="noticeB"></div>
-          </div>
-          
-          <!-- 직접입력 -->
-          <div id="d2Box" class="sub-box" style="display: none;">
-            <p class="help-text">주5일제가 <b>아닌</b> 경우 직접 입력하세요.</p>
-            <div id="dayTypeCustom" class="day-inputs">
-              <span>근무일: <input type="number" id="custom_day1" value="5"/>일</span>
-              <span>무급휴무일(토): <input type="number" id="custom_day5" value="1"/>일</span>
-              <span>유급휴일(일): <input type="number" id="custom_day2" value="1" min="0"/>일</span>
-              <span>무급휴일: <input type="number" id="custom_day3" value="0"/>일</span>
-              <span>유급휴무일: <input type="number" id="custom_day4" value="0"/>일</span>
-            </div>
-            <div id="noticeB_custom" class="noticeB"></div>
-          </div>
-        </div>
-
-        <div class="subsection">
-          <div class="subject"><i class="fa fa-clock-o"></i> 근로시간</div>
-          <div class="radio-group">
-            <label><input type="radio" id="timeType1" name="timeTypeMode" value="monthly" checked /> 월 단위 입력</label>
-            <label><input type="radio" id="timeType2" name="timeTypeMode" value="weekly" /> 주 단위 입력</label>
-          </div>
-          
-          <!-- 월 단위 입력 -->
-          <div id="t1Box" class="sub-box">
-            <div class="grid-form">
-              <div class="grid-item">
-                <label>1주 소정근로시간</label>
-                <div class="radio-group small">
-                  <label><input type="radio" id="fpType1" name="fp" value="no" checked> 풀타임</label>
-                  <label><input type="radio" id="fpType2" name="fp" value="yes"> 파트타임</label>
-                </div>
-                <div class="input-with-unit">
-                  <input type="number" id="soTime"> <span>시간</span>
-                </div>
-              </div>
-              <div class="grid-item">
-                <label>연장근로 (월)</label>
-                <div class="input-with-unit">
-                  <input type="number" id="otMdirect" placeholder="0" min="0" max="60"> <span>시간</span>
-                </div>
-              </div>
-              <div class="grid-item">
-                <label>휴일근로1 (8시간 이내)</label>
-                <div class="input-with-unit">
-                  <input type="number" id="hwMdirect1" placeholder="0" min="0" max="60"> <span>시간</span>
-                </div>
-              </div>
-              <div class="grid-item">
-                <label>휴일근로2 (8시간 초과)</label>
-                <div class="input-with-unit">
-                  <input type="number" id="hwMdirect2" placeholder="0" min="0" max="60"> <span>시간</span>
-                </div>
-              </div>
-            </div>
-            <div class="night-work">
-              <label>야간근로시간 (월)</label>
-              <div class="input-with-unit">
-                <input type="number" id="ntMdirect" placeholder="0" min="0" max="60"> <span>시간</span>
-              </div>
-            </div>
-          </div>
-          
-          <!-- 주 단위 입력 -->
-          <div id="t2Box" class="sub-box" style="display: none;">
-            <div class="grid-form weekly-grid">
-              <div class="grid-item">
-                <label id="M29">월</label>
-                <input type="number" id="work1" value="8" min="0" max="24">
-              </div>
-              <div class="grid-item">
-                <label id="O29">화</label>
-                <input type="number" id="work2" value="8" min="0" max="24">
-              </div>
-              <div class="grid-item">
-                <label id="Q29">수</label>
-                <input type="number" id="work3" value="8" min="0" max="24">
-              </div>
-              <div class="grid-item">
-                <label id="S29">목</label>
-                <input type="number" id="work4" value="8" min="0" max="24">
-              </div>
-              <div class="grid-item">
-                <label id="U29">금</label>
-                <input type="number" id="work5" value="8" min="0" max="24">
-              </div>
-              <div class="grid-item">
-                <label id="W29">토</label>
-                <input type="number" id="work6" value="0" min="0" max="24">
-              </div>
-              <div class="grid-item">
-                <label id="Y29">일</label>
-                <input type="number" id="work7" value="0" min="0" max="24">
-              </div>
-            </div>
+        <!-- Main Content Area -->
+        <main id="main-content" class="content-area">
             
-            <div class="weekly-summary">
-              <p>1주 연장근로: <span id="otWeek">0</span>시간</p>
-              <p>1주 휴일근로: <span id="hwWeek">0</span>시간</p>
-            </div>
-            <span id="workError" class="work-error"></span>
-            
-            <div class="night-work">
-              <label>야간근로시간 (1주 기준)</label>
-              <p class="help-text">1주의 근로시간 <span id="workhourWeek">0</span>시간 중</p>
-              <div class="input-with-unit">
-                <input type="number" id="night" placeholder="0" min="0"> <span>시간</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </fieldset>
+            <!-- Home View -->
+            <section id="view-home" class="view active">
+                <div class="hero-section">
+                    <h2>포괄임금제,<br><span class="highlight">제대로 적용하고 계신가요?</span></h2>
+                    <p>간단한 진단과 정밀 계산으로<br>사업장의 임금 리스크를 예방하세요.</p>
+                </div>
+                
+                <div class="menu-grid">
+                    <button class="menu-card" data-target="view-self-check">
+                        <div class="menu-icon"><i class="fa-solid fa-list-check"></i></div>
+                        <div class="menu-text">
+                            <h3>1분 예방 진단</h3>
+                            <p>우리 회사 포괄임금, 안전할까? 7가지 질문으로 자가진단</p>
+                        </div>
+                        <div class="menu-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                    </button>
 
-      <!-- 임금 입력(월급제) -->
-      <fieldset id="wageboxM" class="input-section">
-        <legend>3. 계약된 임금 내용 (월급제)</legend>
-        
-        <div class="radio-group">
-          <label><input type="radio" id="wageMonthType1" name="WageMonthType" value="fix" checked /> 고정 정액급여</label>
-          <label><input type="radio" id="wageMonthType2" name="WageMonthType" value="divide" /> 기본급 + 고정수당</label>
-        </div>
-        
-        <!-- 고정급제 -->
-        <div id="wm1Box" class="sub-box">
-          <div class="grid-form wage-grid">
-            <div class="grid-item">
-              <label>고정 정액 급여 (필수)</label>
-              <div class="input-with-unit">
-                <input type="text" id="mPaya" class="money-input" placeholder="0"> <span>원</span>
-              </div>
-            </div>
-            <div class="grid-item">
-              <label>연간 고정 상여금 (선택)</label>
-              <div class="input-with-unit">
-                <input type="text" id="overBonus_a" class="money-input" placeholder="0"> <span>원</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <!-- 정액수당제 -->
-        <div id="wm2Box" class="sub-box" style="display: none;">
-          <div class="grid-form wage-grid">
-            <div class="grid-item">
-              <label>기본급 (필수)</label>
-              <div class="input-with-unit">
-                <input type="text" id="mPay_basic" class="money-input" placeholder="0"> <span>원</span>
-              </div>
-            </div>
-            <div class="grid-item">
-              <label>고정OT수당 (필수)</label>
-              <div class="input-with-unit">
-                <input type="text" id="mPay_ot" class="money-input" placeholder="0"> <span>원</span>
-              </div>
-            </div>
-            <div class="grid-item">
-              <label>직무수당 등 (선택)</label>
-              <div class="input-with-unit">
-                <input type="text" id="mPay_jik" class="money-input" placeholder="0"> <span>원</span>
-              </div>
-            </div>
-            <div class="grid-item">
-              <label>복리후생비 (선택)</label>
-              <div class="input-with-unit">
-                <input type="text" id="mPay_sik" class="money-input" placeholder="0"> <span>원</span>
-              </div>
-            </div>
-            <div class="grid-item">
-              <label>매월 지급 상여금 (선택)</label>
-              <div class="input-with-unit">
-                <input type="text" id="mPay_msang" class="money-input" placeholder="0"> <span>원</span>
-              </div>
-            </div>
-            <div class="grid-item">
-              <label>연간 고정 상여금 (선택)</label>
-              <div class="input-with-unit">
-                <input type="text" id="overBonus_b" class="money-input" placeholder="0"> <span>원</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </fieldset>
+                    <button class="menu-card" data-target="view-calculator">
+                        <div class="menu-icon"><i class="fa-solid fa-calculator"></i></div>
+                        <div class="menu-text">
+                            <h3>스마트 계산기</h3>
+                            <p>근로시간과 수당을 입력하여 법적 기준 충족 여부 확인</p>
+                        </div>
+                        <div class="menu-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                    </button>
 
-      <!-- 일급제, 시급제 필드셋(기본 숨김) -->
-      <fieldset id="wageboxD" style="display:none;" class="input-section">
-        <legend>임금 입력 (일급제)</legend>
-        <div class="grid-form wage-grid">
-          <div class="grid-item">
-            <label>일급</label>
-            <div class="input-with-unit">
-              <input type="text" id="dPaya" class="money-input" placeholder="0"> <span>원</span>
-            </div>
-          </div>
-        </div>
-      </fieldset>
-      <fieldset id="wageboxH" style="display:none;" class="input-section">
-        <legend>임금 입력 (시급제)</legend>
-        <div class="grid-form wage-grid">
-          <div class="grid-item">
-            <label>시간급</label>
-            <div class="input-with-unit">
-              <input type="text" id="hPaya" class="money-input" placeholder="0"> <span>원</span>
-            </div>
-          </div>
-        </div>
-      </fieldset>
+                    <button class="menu-card" data-target="view-guidelines">
+                        <div class="menu-icon"><i class="fa-solid fa-scale-balanced"></i></div>
+                        <div class="menu-text">
+                            <h3>법령 및 판례 안내</h3>
+                            <p>포괄임금제 성립 요건과 무효 및 오남용 사례</p>
+                        </div>
+                        <div class="menu-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                    </button>
+                </div>
+            </section>
 
-      <div class="actions">
-        <button type="button" class="btn primary" onclick="calculate()">계산하기</button>
-        <button type="button" class="btn secondary" onclick="resetCalculator()">초기화</button>
-      </div>
+            <!-- Self Check View -->
+            <section id="view-self-check" class="view hidden">
+                <div class="view-header">
+                    <h2>포괄임금 1분 예방 진단</h2>
+                    <p>O/X 퀴즈로 알아보는 사업장 점검</p>
+                </div>
+                <div id="self-check-questions" class="question-list">
+                    <!-- Questions injected by JS -->
+                </div>
+                <div id="self-check-result" class="result-section hidden">
+                    <!-- Result injected by JS -->
+                </div>
+                <button id="btn-submit-self-check" class="btn-primary btn-large block-btn">진단 결과 확인하기</button>
+                <button id="btn-retry-self-check" class="btn-secondary btn-large block-btn hidden">다시 진단하기</button>
+            </section>
 
-      <section class="result-section">
-        <h2>계산 결과</h2>
-        
-        <div id="preView">
-          <div class="empty-result"><i class="fa fa-info-circle"></i> 입력란을 채우면 결과가 표시됩니다.</div>
-        </div>
-        
-        <div id="result">
-          <div class="empty-result"><i class="fa fa-info-circle"></i> 입력란을 채우면 상세 결과가 표시됩니다.</div>
-        </div>
-      </section>
+            <!-- Calculator View -->
+            <section id="view-calculator" class="view hidden">
+                <div class="view-header">
+                    <h2>포괄임금 스마트 계산기</h2>
+                    <div class="notice-box info">
+                        <i class="fa-solid fa-circle-info"></i>
+                        <span>[안내] 본 계산기는 일반적인 주 5일(주 40시간) 통상 근로자를 기준으로 설계되었습니다. 단시간 근로자(아르바이트), 복잡한 교대제 근로자는 정확한 산정을 위해 대구청 상담을 권장합니다.</span>
+                    </div>
+                </div>
+                
+                <form id="calculator-form" class="calc-form">
+                    <!-- A단계: 기초 설정 -->
+                    <div class="calc-step">
+                        <h3>A단계: 기초 설정</h3>
+                        <div class="form-group row">
+                            <label>사업장 규모</label>
+                            <div class="radio-group">
+                                <label class="radio-btn"><input type="radio" name="empSize" value="5+" checked> <span>5인 이상</span></label>
+                                <label class="radio-btn"><input type="radio" name="empSize" value="5-"> <span>5인 미만</span></label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label>최저임금 연도</label>
+                            <div class="radio-group">
+                                <label class="radio-btn"><input type="radio" name="minWageYear" value="2025"> <span>2025년</span></label>
+                                <label class="radio-btn"><input type="radio" name="minWageYear" value="2026" checked> <span>2026년</span></label>
+                            </div>
+                        </div>
+                        <div class="form-group row tooltip-parent">
+                            <label>
+                                특수 업종 여부 
+                                <button type="button" class="btn-help" aria-label="도움말">?</button>
+                            </label>
+                            <div class="tooltip">왜 필요한가요?: 운수, 보건 등 일부 특례 업종은 법정 근로시간 한도 초과 약정이 가능하여, 정확한 리스크 판단에 필수적입니다.</div>
+                            <div class="radio-group">
+                                <label class="radio-btn"><input type="radio" name="specialIndustry" value="Y"> <span>예</span></label>
+                                <label class="radio-btn"><input type="radio" name="specialIndustry" value="N" checked> <span>아니오</span></label>
+                            </div>
+                        </div>
+                    </div>
 
-      <!-- 사용자 요청: 참고 자료 섹션 -->
-      <section class="reference-section">
-        <h3><i class="fa fa-book"></i> 참고 자료 및 관련 판례</h3>
-        <p class="ref-desc">계산 결과 및 포괄임금제와 관련된 행정 해석과 대법원 판례를 확인하실 수 있습니다.</p>
-        <ul class="ref-list">
-          <li>
-            <a href="https://www.moel.go.kr/policy/policydata/view.do?bbs_seq=20260500341" target="_blank" rel="noopener noreferrer">
-              <span class="ref-badge">지도지침</span> 공짜노동 근절을 위한 포괄임금 오남용 방지 지도지침
-            </a>
-          </li>
-          <li>
-            <a href="https://www.law.go.kr/%ED%8C%90%EB%A1%80/(2008%EB%8B%A46052)" target="_blank" rel="noopener noreferrer">
-              <span class="ref-badge">대법원 판례</span> [대법원 2010. 5. 13. 선고 2008다6052 판결] 근로시간 계산이 어렵지 않다면 포괄임금제 계약 무효
-            </a>
-          </li>
-          <li>
-            <a href="https://www.scourt.go.kr/supreme/news/NewsViewAction2.work?seqnum=2300&gubun=4&searchOption=&searchWord=" target="_blank" rel="noopener noreferrer">
-              <span class="ref-badge">대법원 주요판결</span> [대법원 2009. 12. 10. 선고 2008다57852] 포괄임금제의 성립 여부에 관한 판단방법
-            </a>
-          </li>
-        </ul>
-      </section>
-    </main>
+                    <!-- B단계: 계약서 기준 -->
+                    <div class="calc-step">
+                        <h3>B단계: 계약서 기준</h3>
+                        <div class="form-group">
+                            <label for="basicPay">기본급 (원)</label>
+                            <input type="text" id="basicPay" class="input-money" placeholder="0" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="fixedOvertimePay">고정 연장근로수당 (원)</label>
+                            <input type="text" id="fixedOvertimePay" class="input-money" placeholder="0" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="otherFixedPay">기타 고정수당 (원)</label>
+                            <input type="text" id="otherFixedPay" class="input-money" placeholder="0">
+                            <span class="help-text">(※ 매월 고정적으로 지급되는 식대, 직책수당 등만 입력)</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="annualBonus">연간 고정 상여금 (원)</label>
+                            <input type="text" id="annualBonus" class="input-money" placeholder="입력하세요 (없으면 0원)">
+                        </div>
+                        <div class="form-group row">
+                            <label for="contractRegularHours">계약상 월 소정근로시간</label>
+                            <input type="number" id="contractRegularHours" value="209" min="0">
+                        </div>
+                        <div class="form-group row">
+                            <label for="contractOvertimeHours">계약상 월 고정 연장시간</label>
+                            <input type="number" id="contractOvertimeHours" placeholder="예: 20" min="0">
+                        </div>
+                    </div>
 
-    <footer class="app-footer">
-      <p>본 계산기는 참고용으로만 사용하시기 바랍니다.</p>
-    </footer>
-  </div>
+                    <!-- C단계: 실제 현실시간 입력 -->
+                    <div class="calc-step">
+                        <h3>C단계: 실제 발생 근로시간</h3>
+                        <div class="notice-box warning mb-sm">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                            <span>[주의] 실제 일한 시간 입력 시 식사 및 휴게시간은 반드시 제외하고 입력해 주세요.</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="actualOvertimeHours">실제 발생한 월 연장근로시간 (시간)</label>
+                            <input type="number" id="actualOvertimeHours" placeholder="0" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="actualHolidayHours8Under">실제 발생한 월 휴일근로 (8시간 이내)</label>
+                            <input type="number" id="actualHolidayHours8Under" placeholder="0" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="actualHolidayHours8Over">실제 발생한 월 휴일근로 (8시간 초과)</label>
+                            <input type="number" id="actualHolidayHours8Over" placeholder="0" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="actualNightHours">실제 발생한 월 야간근로시간 (시간)</label>
+                            <input type="number" id="actualNightHours" placeholder="0" min="0">
+                        </div>
+                    </div>
 
-  <!-- Scripts -->
-  <script src="js/util.js"></script>
-  <script src="js/cal.js"></script>
-  <script src="js/m.js"></script>
-  <script src="js/d.js"></script>
-  <script src="js/h.js"></script>
-  
-  <script>
-    // 반응형 결과 조회를 위한 이벤트 리스너 추가
-    $(document).ready(function() {
-      // 모든 인풋과 라디오 버튼에 이벤트 등록
-      $('input').on('input change', function() {
-        if (typeof calculate === 'function') {
-          // 약간의 디바운싱 효과를 위해 setTimeout 사용
-          clearTimeout(window.calcTimeout);
-          window.calcTimeout = setTimeout(function() {
-            calculate();
-          }, 300);
-        }
-      });
-      
-      // 초기 상태 업데이트
-      $('input[type="radio"]:checked').trigger('change');
-    });
-  </script>
+                    <button type="submit" class="btn-primary btn-large block-btn">정밀 진단하기</button>
+                </form>
+
+                <!-- D단계: 결과 -->
+                <div id="calculator-result" class="result-container hidden">
+                    <div class="result-summary" id="result-summary-box">
+                        <!-- Summary injected by JS -->
+                    </div>
+                    
+                    <div class="accordion">
+                        <button class="accordion-header" id="btn-toggle-details">
+                            <span>상세 산출 근거 및 내역 보기</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </button>
+                        <div class="accordion-content hidden" id="calc-details">
+                            <!-- Details injected by JS -->
+                        </div>
+                    </div>
+                    
+                    <div class="legal-disclaimer">
+                        본 진단은 입력된 금액과 시간의 수학적 적정성을 점검한 결과입니다. 근로시간 산정이 가능한 일반 사무직의 경우 포괄임금제 계약 자체가 무효가 될 수 있으며, 연차수당 포괄 등 기타 쟁점은 별도의 법적 판단이 필요하므로 본 결과가 사업장의 100% 적법성을 보장하는 행정해석은 아닙니다.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Guidelines View -->
+            <section id="view-guidelines" class="view hidden">
+                <div class="view-header">
+                    <h2>관련 법령 및 리딩 판례</h2>
+                    <p>포괄임금제의 핵심 개념과 법적 판단 기준</p>
+                </div>
+                <div class="guideline-cards">
+                    <div class="card">
+                        <h3>1. 포괄임금제란?</h3>
+                        <p>근로시간 산정이 어려운 경우 등 엄격한 요건 하에서 예외적으로 인정되는 임금 지급 방식입니다. '기본급'에 연장·야간·휴일근로수당 등을 미리 포함하여 지급하기로 하는 약정을 말합니다.</p>
+                    </div>
+                    <div class="card error">
+                        <h3>2. 사무직 포괄임금 적용 주의</h3>
+                        <p><strong>일반 사무직은 원칙적으로 무효가 될 가능성이 높습니다.</strong> 출퇴근 시간이 명확한 일반 사무직이나 생산직은 근로시간 산정이 가능하므로, 포괄임금제를 적용하더라도 무효로 판단되어 차액 수당을 청구받을 위험이 큽니다.</p>
+                    </div>
+                    <div class="card warning">
+                        <h3>3. 퇴직금 및 연차수당 포괄 금지</h3>
+                        <p>매월 월급에 '퇴직금'이나 '연차수당'을 포함하여 지급하는 방식은 대법원 판례상 무효로 인정됩니다. 반드시 법정 기준에 맞춰 별도로 정산해야 합니다.</p>
+                    </div>
+                    <div class="card">
+                        <h3>4. 최저임금 및 1.5배 할증 적용</h3>
+                        <p>고정수당을 제외한 '순수 기본급'을 기준으로 환산한 시급이 당해 최저임금에 미달하면 형사처벌 대상입니다. 또한 약정된 연장근로시간을 초과하여 일한 시간은 반드시 1.5배(또는 휴일/야간 할증 포함)를 적용하여 추가 수당을 지급해야 합니다.</p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="app.js"></script>
 </body>
 </html>

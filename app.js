@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
         views[viewId].classList.add('active');
 
         headerTitle.textContent = viewTitles[viewId];
+        window.scrollTo({ top: 0, behavior: 'auto' });
         
         if (viewId === 'view-home') {
             btnBack.classList.add('hidden');
@@ -43,6 +44,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     btnBack.addEventListener('click', () => navigateTo('view-home'));
+
+    // 하단 '돌아가기' 버튼 (1분 진단 / 스마트 계산기 / 법령·판례)
+    document.querySelectorAll('.btn-go-home').forEach(btn => {
+        btn.addEventListener('click', () => navigateTo('view-home'));
+    });
 
     // ---- Self Check Logic ----
     const questions = [

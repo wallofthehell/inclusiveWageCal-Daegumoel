@@ -738,3 +738,60 @@ body {
 #btn-retry-self-check {
     margin-top: 12px;
 }
+
+.ruling-body p.ruling-title { font-size: calc(1.05rem + 1pt); }
+
+.ruling-body p.ruling-sub {
+    font-weight: 700;
+    color: var(--text-main);
+    margin-top: 14px;
+    margin-bottom: 6px;
+}
+
+.ruling-body p.ruling-quote {
+    background-color: #EEF2FF;
+    border-radius: 8px;
+    padding: 12px 14px;
+}
+
+/* 표가 박스를 벗어나지 않도록 */
+.ruling-table-wrap {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    margin: 4px 0 14px;
+}
+
+.ruling-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    table-layout: fixed;
+}
+
+.ruling-table th,
+.ruling-table td {
+    border: 1px solid var(--border-color);
+    padding: 8px 10px;
+    text-align: left;
+    vertical-align: top;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+}
+
+.ruling-table th {
+    background-color: #F1F5F9;
+    font-weight: 700;
+}
+
+.ruling-table th:first-child,
+.ruling-table td:first-child {
+    width: 38%;
+    font-weight: 600;
+}
+
+.card.ruling,
+.ruling-body {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+}

@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>포괄임금 계산기</title>
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <link rel="stylesheet" href="style.css">
@@ -26,7 +26,7 @@
             <!-- Home View -->
             <section id="view-home" class="view active">
                 <div class="hero-section">
-                    <h2>포괄임금 계산,<br><span class="highlight">적법한지 스스로 점검하세요!</span></h2>
+                    <h2>복잡한 포괄임금 계산,<br><span class="highlight">자율점검으로 시작!</span></h2>
                     <p>간단한 입력만으로<br>사업장의 임금 관리현황을 미리 점검해 보세요.</p>
                 </div>
                 
@@ -125,12 +125,11 @@
                             <label>최저임금 연도</label>
                             <div class="min-wage-controls">
                                 <div class="radio-group">
-                                    <label class="radio-btn"><input type="radio" name="minWageYear" value="2025"> <span>2025년</span></label>
                                     <label class="radio-btn"><input type="radio" name="minWageYear" value="2026" checked> <span>2026년</span></label>
                                     <label class="radio-btn"><input type="radio" name="minWageYear" value="custom" id="radio-minwage-custom"> <span>기타</span></label>
                                 </div>
                                 <div class="custom-wage-box" id="custom-wage-box">
-                                    <input type="text" id="customMinWage" class="input-money" inputmode="numeric" pattern="[0-9,]*" placeholder="시간급 직접 입력" aria-label="기타 시간급 직접 입력 (단위: 원)">
+                                    <input type="text" id="customMinWage" class="input-money" inputmode="numeric" pattern="[0-9,]*" placeholder="최저시급 직접 입력" aria-label="기타 최저시급 직접 입력 (단위: 원)">
                                     <span class="unit-text">원</span>
                                 </div>
                             </div>

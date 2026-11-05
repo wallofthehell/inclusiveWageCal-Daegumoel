@@ -397,8 +397,10 @@ body {
     color: var(--text-main);
 }
 
-.form-group.row label {
+.form-group.row > label {
     margin-bottom: 0;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .form-group input[type="text"],
@@ -412,7 +414,8 @@ body {
     transition: border-color 0.2s;
 }
 
-.form-group.row input {
+.form-group.row > input[type="text"],
+.form-group.row > input[type="number"] {
     width: 120px;
     text-align: right;
 }
@@ -466,31 +469,40 @@ body {
 
 /* Radio Group (Segmented Control style) */
 .radio-group {
-    display: flex;
+    display: inline-flex;
+    align-items: center;
     background-color: #F1F5F9;
     border-radius: 8px;
     padding: 4px;
+    gap: 2px;
+    flex-shrink: 0;
 }
 
 .radio-btn {
-    flex: 1;
+    flex: 1 0 auto;
     text-align: center;
     position: relative;
     cursor: pointer;
+    margin-bottom: 0 !important;
 }
 
 .radio-btn input {
     position: absolute;
     opacity: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
 }
 
 .radio-btn span {
     display: block;
-    padding: 8px;
+    padding: 8px 14px;
     border-radius: 6px;
     font-size: 0.9rem;
     font-weight: 600;
     color: var(--text-muted);
+    white-space: nowrap;
+    word-break: keep-all;
     transition: all 0.2s;
 }
 
@@ -498,6 +510,69 @@ body {
     background-color: var(--bg-surface);
     color: var(--primary);
     box-shadow: var(--shadow-sm);
+}
+
+/* 최저임금 연도 + 기타 시간급 직접 입력 컨트롤 */
+.min-wage-row {
+    align-items: center;
+    gap: 8px;
+}
+
+.min-wage-controls {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.custom-wage-box {
+    display: inline-flex;
+    align-items: center;
+    background-color: var(--bg-surface);
+    border: 1.5px solid var(--border-color);
+    border-radius: 8px;
+    padding: 4px 10px;
+    height: 42px;
+    transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
+}
+
+.custom-wage-box.active,
+.custom-wage-box:focus-within {
+    border-color: var(--primary);
+    background-color: #EFF6FF;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
+}
+
+.custom-wage-box input#customMinWage {
+    width: 108px;
+    border: none;
+    background: transparent;
+    padding: 4px 4px 4px 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-main);
+    text-align: right;
+    box-shadow: none;
+}
+
+.custom-wage-box input#customMinWage::placeholder {
+    color: #94A3B8;
+    font-weight: 500;
+    font-size: 0.82rem;
+}
+
+.custom-wage-box input#customMinWage:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.custom-wage-box .unit-text {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--secondary);
+    margin-left: 2px;
+    white-space: nowrap;
 }
 
 /* Notice Box */
@@ -794,4 +869,164 @@ body {
 .ruling-body {
     max-width: 100%;
     overflow-wrap: anywhere;
+}
+
+/* 계산기 파라미터 및 로직 설명서 다운로드 버튼 */
+.logic-doc-bar {
+    margin-top: 12px;
+}
+
+.btn-download-md {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 11px 16px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--primary);
+    background-color: var(--bg-surface);
+    border: 1.5px solid #BFDBFE;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: background-color 0.2s, border-color 0.2s, transform 0.1s;
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-download-md:hover {
+    background-color: #EFF6FF;
+    border-color: var(--primary);
+}
+
+.btn-download-md:active {
+    transform: scale(0.99);
+}
+
+/* QR로 바로 접속 배너 (참조 이미지 스타일) */
+.qr-banner-wrap {
+    margin-top: 24px;
+    padding: 12px;
+    background-color: #EEF6FF;
+    border-radius: 18px;
+}
+
+.qr-banner-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background-color: #FFFFFF;
+    border: 1px solid #DCEBFA;
+    border-radius: 16px;
+    padding: 14px 16px;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+}
+
+.qr-banner-code {
+    flex-shrink: 0;
+    width: 112px;
+    height: 112px;
+    padding: 8px;
+    background-color: #FFFFFF;
+    border: 1.5px solid #EBF0F7;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.qr-banner-code img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    image-rendering: pixelated;
+}
+
+.qr-banner-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.qr-banner-title {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #00205B;
+    line-height: 1.2;
+    margin-bottom: 6px;
+    letter-spacing: -0.02em;
+}
+
+.qr-banner-url {
+    display: inline-block;
+    width: 100%;
+    max-width: 320px;
+    background-color: #F0F7FF;
+    color: #1E293B;
+    font-size: 0.88rem;
+    font-weight: 500;
+    padding: 5px 14px;
+    border-radius: 999px;
+    margin-bottom: 8px;
+    word-break: break-all;
+}
+
+.qr-banner-guide {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.qr-guide-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.78rem;
+    color: #334155;
+    line-height: 1.35;
+}
+
+.qr-os-badge {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 66px;
+    padding: 3px 0;
+    background-color: #274C77;
+    color: #FFFFFF;
+    font-size: 0.72rem;
+    font-weight: 700;
+    border-radius: 999px;
+    text-align: center;
+}
+
+.qr-os-text {
+    word-break: keep-all;
+}
+
+@media (max-width: 440px) {
+    .qr-banner-card {
+        gap: 12px;
+        padding: 12px;
+    }
+    .qr-banner-code {
+        width: 92px;
+        height: 92px;
+        padding: 6px;
+    }
+    .qr-banner-title {
+        font-size: 1.1rem;
+    }
+    .qr-banner-url {
+        font-size: 0.8rem;
+        padding: 4px 10px;
+    }
+    .qr-guide-row {
+        font-size: 0.72rem;
+        gap: 6px;
+    }
+    .qr-os-badge {
+        width: 58px;
+        font-size: 0.68rem;
+    }
 }

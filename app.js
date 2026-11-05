@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const headerTitle = document.getElementById('header-title');
 
     const viewTitles = {
-        'view-home': '포괄임금 도우미',
+        'view-home': '포괄임금 스마트 자율점검',
         'view-self-check': '1분 예방 진단',
         'view-calculator': '스마트 계산기',
         'view-guidelines': '법령 및 판례 안내'
@@ -199,7 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // ---- Calculator Logic ----
-    // Formatting numbers with commas
+    // Formatting numbers with commas (정수 입력)
     document.querySelectorAll('.input-money').forEach(input => {
         input.addEventListener('input', function(e) {
             let value = e.target.value.replace(/,/g, '').replace(/[^0-9]/g, '');
@@ -210,6 +210,75 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // 최저임금 연도 '기타' 및 시간급 직접 입력 연동
+    const radioMinWageCustom = document.getElementById('radio-minwage-custom');
+    const customMinWageInput = document.getElementById('customMinWage');
+    const customWageBox = document.getElementById('custom-wage-box');
+
+    function selectCustomMinWage() {
+        if (radioMinWageCustom) {
+            radioMinWageCustom.checked = true;
+        }
+        if (customWageBox) {
+            customWageBox.classList.add('active');
+        }
+    }
+
+    if (customMinWageInput) {
+        // 입력필드 클릭/터치/포커스/값 입력 시 '기타' 선택 처리
+        ['click', 'touchstart', 'focus', 'input'].forEach(evtName => {
+            customMinWageInput.addEventListener(evtName, () => {
+                selectCustomMinWage();
+            }, { passive: true });
+        });
+    }
+
+    if (customWageBox) {
+        customWageBox.addEventListener('click', () => {
+            selectCustomMinWage();
+            if (customMinWageInput && document.activeElement !== customMinWageInput) {
+                customMinWageInput.focus();
+            }
+        });
+    }
+
+    document.querySelectorAll('input[name="minWageYear"]').forEach(radio => {
+        radio.addEventListener('change', (e) => {
+            if (e.target.value === 'custom') {
+                if (customWageBox) customWageBox.classList.add('active');
+                if (customMinWageInput) customMinWageInput.focus();
+            } else {
+                if (customWageBox) customWageBox.classList.remove('active');
+                if (customMinWageInput) customMinWageInput.value = '';
+            }
+        });
+    });
+
+    // 계산기 파라미터 및 작동 로직 설명서 (.md) 다운로드
+    const btnDownloadLogicMd = document.getElementById('btn-download-logic-md');
+    if (btnDownloadLogicMd) {
+        btnDownloadLogicMd.addEventListener('click', async (e) => {
+            e.preventDefault();
+            try {
+                const res = await fetch('calculator-logic-guide.md', { cache: 'no-cache' });
+                if (!res.ok) throw new Error('Fetch failed');
+                const mdText = await res.text();
+                const blob = new Blob([mdText], { type: 'text/markdown;charset=utf-8' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = '포괄임금_스마트_계산기_로직_설명서.md';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                setTimeout(() => URL.revokeObjectURL(url), 1000);
+            } catch (err) {
+                // Fallback direct navigation/download
+                window.location.href = 'calculator-logic-guide.md';
+            }
+        });
+    }
 
     const calcForm = document.getElementById('calculator-form');
     const accHeader = document.getElementById('btn-toggle-details');
@@ -225,13 +294,31 @@ document.addEventListener('DOMContentLoaded', () => {
     calcForm.addEventListener('submit', (e) => {
         e.preventDefault();
 
+        const parseMoney = (id) => parseInt((document.getElementById(id).value || '').replace(/,/g, '') || 0, 10);
+        const parseHours = (id) => parseFloat(document.getElementById(id).value || 0);
+
         // Get values
         const empSize = document.querySelector('input[name="empSize"]:checked').value; // '5+' or '5-'
-        const minWageYear = document.querySelector('input[name="minWageYear"]:checked').value;
-        const MIN_WAGE = minWageYear === '2026' ? 10320 : 10030;
+        let minWageYear = document.querySelector('input[name="minWageYear"]:checked').value;
+        const customWageVal = parseMoney('customMinWage');
 
-        const parseMoney = (id) => parseInt(document.getElementById(id).value.replace(/,/g, '') || 0, 10);
-        const parseHours = (id) => parseFloat(document.getElementById(id).value || 0);
+        // 입력필드에 값을 입력했다면 그 필드를 선택한 것으로 처리하고 그 입력값을 시간급으로 적용
+        if (customWageVal > 0) {
+            selectCustomMinWage();
+            minWageYear = 'custom';
+        }
+
+        let MIN_WAGE;
+        if (minWageYear === 'custom') {
+            if (!customWageVal || customWageVal <= 0) {
+                alert('기타 시간급(단위: 원)을 정수로 입력해주세요.');
+                if (customMinWageInput) customMinWageInput.focus();
+                return;
+            }
+            MIN_WAGE = customWageVal;
+        } else {
+            MIN_WAGE = minWageYear === '2026' ? 10320 : 10030;
+        }
 
         const basicPay = parseMoney('basicPay');
         const fixedOTPay = parseMoney('fixedOvertimePay');

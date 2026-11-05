@@ -16,7 +16,7 @@
             <button id="btn-back" class="btn-icon hidden" aria-label="뒤로가기">
                 <i class="fa-solid fa-arrow-left"></i>
             </button>
-            <h1 id="header-title">포괄임금 도우미</h1>
+            <h1 id="header-title">포괄임금 스마트 자율점검</h1>
             <div class="header-right"></div>
         </header>
 
@@ -26,8 +26,8 @@
             <!-- Home View -->
             <section id="view-home" class="view active">
                 <div class="hero-section">
-                    <h2>포괄임금제,<br><span class="highlight">제대로 적용하고 계신가요?</span></h2>
-                    <p>간단한 진단과 정밀 계산으로<br>사업장의 임금 리스크를 예방하세요.</p>
+                    <h2>포괄임금 계산,<br><span class="highlight">적법한지 스스로 점검하세요!</span></h2>
+                    <p>간단한 입력만으로<br>사업장의 임금 관리현황을 미리 점검해 보세요.</p>
                 </div>
                 
                 <div class="menu-grid">
@@ -58,6 +58,29 @@
                         <div class="menu-arrow"><i class="fa-solid fa-chevron-right"></i></div>
                     </button>
                 </div>
+
+                <!-- QR Direct Access Banner -->
+                <div class="qr-banner-wrap">
+                    <div class="qr-banner-card">
+                        <div class="qr-banner-code">
+                            <img src="qr-code.png" alt="QR 코드">
+                        </div>
+                        <div class="qr-banner-info">
+                            <div class="qr-banner-title">QR로 바로 접속</div>
+                            <div class="qr-banner-url">https://m.site.naver.com/2kgoX</div>
+                            <div class="qr-banner-guide">
+                                <div class="qr-guide-row">
+                                    <span class="qr-os-badge">아이폰</span>
+                                    <span class="qr-os-text">Safari에서 열기 → 공유 버튼 → 홈 화면에 추가</span>
+                                </div>
+                                <div class="qr-guide-row">
+                                    <span class="qr-os-badge">안드로이드</span>
+                                    <span class="qr-os-text">Chrome에서 열기 → 메뉴 → 홈 화면에 추가 또는 앱 설치</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </section>
 
             <!-- Self Check View -->
@@ -85,6 +108,11 @@
                         <i class="fa-solid fa-circle-info"></i>
                         <span>[안내] 본 계산기는 일반적인 주 5일(주 40시간) 통상 근로자를 기준으로 설계되었습니다. 단시간 근로자(아르바이트), 복잡한 교대제 근로자는 정확한 산정을 위해 대구청 상담을 권장합니다.</span>
                     </div>
+                    <div class="logic-doc-bar">
+                        <a href="calculator-logic-guide.md" download="포괄임금_스마트_계산기_로직_설명서.md" id="btn-download-logic-md" class="btn-download-md">
+                            <i class="fa-solid fa-file-arrow-down"></i> 계산기 파라미터 및 작동 로직 설명서 다운로드 (.md)
+                        </a>
+                    </div>
                 </div>
                 
                 <form id="calculator-form" class="calc-form">
@@ -98,11 +126,18 @@
                                 <label class="radio-btn"><input type="radio" name="empSize" value="5-"> <span>5인 미만</span></label>
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="form-group row min-wage-row">
                             <label>최저임금 연도</label>
-                            <div class="radio-group">
-                                <label class="radio-btn"><input type="radio" name="minWageYear" value="2025"> <span>2025년</span></label>
-                                <label class="radio-btn"><input type="radio" name="minWageYear" value="2026" checked> <span>2026년</span></label>
+                            <div class="min-wage-controls">
+                                <div class="radio-group">
+                                    <label class="radio-btn"><input type="radio" name="minWageYear" value="2025"> <span>2025년</span></label>
+                                    <label class="radio-btn"><input type="radio" name="minWageYear" value="2026" checked> <span>2026년</span></label>
+                                    <label class="radio-btn"><input type="radio" name="minWageYear" value="custom" id="radio-minwage-custom"> <span>기타</span></label>
+                                </div>
+                                <div class="custom-wage-box" id="custom-wage-box">
+                                    <input type="text" id="customMinWage" class="input-money" inputmode="numeric" pattern="[0-9,]*" placeholder="시간급 직접 입력" aria-label="기타 시간급 직접 입력 (단위: 원)">
+                                    <span class="unit-text">원</span>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group row tooltip-parent">

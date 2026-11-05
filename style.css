@@ -871,38 +871,6 @@ body {
     overflow-wrap: anywhere;
 }
 
-/* 계산기 파라미터 및 로직 설명서 다운로드 버튼 */
-.logic-doc-bar {
-    margin-top: 12px;
-}
-
-.btn-download-md {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    width: 100%;
-    padding: 11px 16px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--primary);
-    background-color: var(--bg-surface);
-    border: 1.5px solid #BFDBFE;
-    border-radius: 10px;
-    text-decoration: none;
-    transition: background-color 0.2s, border-color 0.2s, transform 0.1s;
-    box-shadow: var(--shadow-sm);
-}
-
-.btn-download-md:hover {
-    background-color: #EFF6FF;
-    border-color: var(--primary);
-}
-
-.btn-download-md:active {
-    transform: scale(0.99);
-}
-
 /* QR로 바로 접속 배너 (참조 이미지 스타일) */
 .qr-banner-wrap {
     margin-top: 24px;

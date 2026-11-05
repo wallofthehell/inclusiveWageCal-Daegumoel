@@ -255,31 +255,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 계산기 파라미터 및 작동 로직 설명서 (.md) 다운로드
-    const btnDownloadLogicMd = document.getElementById('btn-download-logic-md');
-    if (btnDownloadLogicMd) {
-        btnDownloadLogicMd.addEventListener('click', async (e) => {
-            e.preventDefault();
-            try {
-                const res = await fetch('calculator-logic-guide.md', { cache: 'no-cache' });
-                if (!res.ok) throw new Error('Fetch failed');
-                const mdText = await res.text();
-                const blob = new Blob([mdText], { type: 'text/markdown;charset=utf-8' });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = '포괄임금_스마트_계산기_로직_설명서.md';
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                setTimeout(() => URL.revokeObjectURL(url), 1000);
-            } catch (err) {
-                // Fallback direct navigation/download
-                window.location.href = 'calculator-logic-guide.md';
-            }
-        });
-    }
-
     const calcForm = document.getElementById('calculator-form');
     const accHeader = document.getElementById('btn-toggle-details');
     const accContainer = document.querySelector('.accordion');

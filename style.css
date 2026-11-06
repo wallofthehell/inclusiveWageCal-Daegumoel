@@ -1185,8 +1185,16 @@ body {
     padding: 6px 12px;
     border-radius: 12px;
     margin-bottom: 8px;
+    text-decoration: none;
     word-break: break-all;
     overflow-wrap: anywhere;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.qr-banner-url:hover {
+    background-color: #E0EFFE;
+    color: var(--primary-dark);
+    text-decoration: underline;
 }
 
 .qr-banner-guide {
